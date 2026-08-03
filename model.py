@@ -11,8 +11,14 @@ def build_vocab(text):
     """Return a sorted list of unique characters in text."""
     return sorted(set(list(text)))
 
-# Step 2 - build_stoi (not yet solved)
-# TODO: implement
+# Step 2 - build_stoi
+def build_stoi(vocab):
+    """Return a dict mapping each character in vocab to its index."""
+    
+    stoi = {}
+    for i in range(len(vocab)):
+        stoi[vocab[i]] = i
+    return stoi
 
 # Step 3 - build_itos (not yet solved)
 # TODO: implement
