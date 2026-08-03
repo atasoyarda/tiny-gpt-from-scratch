@@ -20,8 +20,14 @@ def build_stoi(vocab):
         stoi[vocab[i]] = i
     return stoi
 
-# Step 3 - build_itos (not yet solved)
-# TODO: implement
+# Step 3 - build_itos
+def build_itos(vocab):
+    """Return a dict mapping each index 0..len(voc[ab)-1 to its character."""
+    itos = {}
+    for i in range(len(vocab)):
+        itos[i] = vocab[i]
+
+    return itos
 
 # Step 4 - encode_char (not yet solved)
 # TODO: implement
