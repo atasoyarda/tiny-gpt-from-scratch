@@ -9,8 +9,7 @@ import numpy as np
 # Step 1 - build_vocab
 def build_vocab(text):
     """Return a sorted list of unique characters in text."""
-    chars = sorted(set(list(text)))
-    return chars
+    return sorted(set(list(text)))
 
 # Step 2 - build_stoi (not yet solved)
 # TODO: implement
