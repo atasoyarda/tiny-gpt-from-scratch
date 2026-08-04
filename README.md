@@ -14,35 +14,35 @@ python scaffold.py
 - [x] **2.** build_stoi
 - [x] **3.** build_itos
 - [x] **4.** encode_char
-- [ ] **5.** encode_string
-- [ ] **6.** decode_int
-- [ ] **7.** decode_ids
-- [ ] **8.** make_1d_array
-- [ ] **9.** get_array_shape
-- [ ] **10.** get_array_dtype
-- [ ] **11.** make_2d_zeros
-- [ ] **12.** make_2d_random
-- [ ] **13.** index_element
-- [ ] **14.** slice_row
-- [ ] **15.** slice_column
-- [ ] **16.** slice_subblock
-- [ ] **17.** elementwise_add
-- [ ] **18.** elementwise_multiply
-- [ ] **19.** scalar_broadcast_add
-- [ ] **20.** vector_matrix_broadcast_add
-- [ ] **21.** array_exp
-- [ ] **22.** array_log
-- [ ] **23.** sum_all
-- [ ] **24.** sum_axis0
-- [ ] **25.** sum_axis1
-- [ ] **26.** max_along_axis
-- [ ] **27.** matmul
-- [ ] **28.** transpose_matrix
-- [ ] **29.** sum_keepdims
-- [ ] **30.** naive_softmax_1d
-- [ ] **31.** softmax_overflow_demo
-- [ ] **32.** stable_softmax_1d
-- [ ] **33.** stable_softmax_2d_rowwise
+- [x] **5.** encode_string
+- [x] **6.** decode_int
+- [x] **7.** decode_ids
+- [x] **8.** make_1d_array
+- [x] **9.** get_array_shape
+- [x] **10.** get_array_dtype
+- [x] **11.** make_2d_zeros
+- [x] **12.** make_2d_random
+- [x] **13.** index_element
+- [x] **14.** slice_row
+- [x] **15.** slice_column
+- [x] **16.** slice_subblock
+- [x] **17.** elementwise_add
+- [x] **18.** elementwise_multiply
+- [x] **19.** scalar_broadcast_add
+- [x] **20.** vector_matrix_broadcast_add
+- [x] **21.** array_exp
+- [x] **22.** array_log
+- [x] **23.** sum_all
+- [x] **24.** sum_axis0
+- [x] **25.** sum_axis1
+- [x] **26.** max_along_axis
+- [x] **27.** matmul
+- [x] **28.** transpose_matrix
+- [x] **29.** sum_keepdims
+- [x] **30.** naive_softmax_1d
+- [x] **31.** softmax_overflow_demo
+- [x] **32.** stable_softmax_1d
+- [x] **33.** stable_softmax_2d_rowwise
 - [ ] **34.** read_text_file
 - [ ] **35.** encode_corpus_to_int_array
 - [ ] **36.** pick_split_point

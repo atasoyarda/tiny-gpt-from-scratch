@@ -35,92 +35,229 @@ def encode_char(ch, stoi):
       
     return stoi[ch]
 
-# Step 5 - encode_string (not yet solved)
-# TODO: implement
+# Step 5 - encode_string
+def encode_string(text, stoi):
+    """Encode a full string into a list of token ids using stoi."""
+    
+    encoded_string = []
+    chars = list(text)
+    for i in range(len(chars)):
+        char = chars[i]
+        code = stoi[char]
+        encoded_string.append(code)
+    return encoded_string
 
-# Step 6 - decode_int (not yet solved)
-# TODO: implement
+# Step 6 - decode_int
+def decode_int(token_id, itos):
+    """Return the single character mapped to token_id by itos."""
+    
+    return itos[token_id]
 
-# Step 7 - decode_ids (not yet solved)
-# TODO: implement
+# Step 7 - decode_ids
+def decode_ids(ids, itos):
+    """Decode a list of token ids into a string using itos."""
+    
+    chars = ''
 
-# Step 8 - make_1d_array (not yet solved)
-# TODO: implement
+    for i in range(len(ids)):
+        char = itos[ids[i]]
+        chars = chars + char
+    return chars
 
-# Step 9 - get_array_shape (not yet solved)
-# TODO: implement
+# Step 8 - make_1d_array
+import numpy as np
 
-# Step 10 - get_array_dtype (not yet solved)
-# TODO: implement
+def make_1d_array(values):
+    """Create a 1D NumPy array from a Python list of numbers."""
+    return np.array(values)
 
-# Step 11 - make_2d_zeros (not yet solved)
-# TODO: implement
+# Step 9 - get_array_shape
+import numpy as np
 
-# Step 12 - make_2d_random (not yet solved)
-# TODO: implement
+def get_array_shape(arr):
+    """Return the shape tuple of a NumPy array."""
+    return (arr.shape)
 
-# Step 13 - index_element (not yet solved)
-# TODO: implement
+# Step 10 - get_array_dtype
+import numpy as np
 
-# Step 14 - slice_row (not yet solved)
-# TODO: implement
+def get_array_dtype(arr):
+    """Return the dtype of a NumPy array."""
+    return arr.dtype
 
-# Step 15 - slice_column (not yet solved)
-# TODO: implement
+# Step 11 - make_2d_zeros
+import numpy as np
 
-# Step 16 - slice_subblock (not yet solved)
-# TODO: implement
+def make_2d_zeros(rows, cols):
+    """Return a 2D NumPy array of zeros with shape (rows, cols)."""
+    return np.zeros((rows,cols))
 
-# Step 17 - elementwise_add (not yet solved)
-# TODO: implement
+# Step 12 - make_2d_random
+import numpy as np
 
-# Step 18 - elementwise_multiply (not yet solved)
-# TODO: implement
+def make_2d_random(rows, cols, seed):
+    """Return a (rows, cols) array of uniform floats in [0, 1) seeded by `seed`."""
+    np.random.seed(seed=seed)
+    return np.random.rand(rows,cols)
 
-# Step 19 - scalar_broadcast_add (not yet solved)
-# TODO: implement
+# Step 13 - index_element
+def index_element(arr, i, j):
+    """Return the scalar element at position (i, j) of a 2D array."""
+    return arr[i][j]
 
-# Step 20 - vector_matrix_broadcast_add (not yet solved)
-# TODO: implement
+# Step 14 - slice_row
+import numpy as np
 
-# Step 21 - array_exp (not yet solved)
-# TODO: implement
+def slice_row(arr, i):
+    """Return row i of a 2D array as a 1D view."""
+    sliced_arr = arr[i,:]
+    return sliced_arr
 
-# Step 22 - array_log (not yet solved)
-# TODO: implement
+# Step 15 - slice_column
+import numpy as np
 
-# Step 23 - sum_all (not yet solved)
-# TODO: implement
+def slice_column(arr, j):
+    """Return column j of a 2D array as a 1D array of length R."""
+    sliced_arr = arr[:,j]
+    return sliced_arr
 
-# Step 24 - sum_axis0 (not yet solved)
-# TODO: implement
+# Step 16 - slice_subblock
+import numpy as np
 
-# Step 25 - sum_axis1 (not yet solved)
-# TODO: implement
+def slice_subblock(arr, r0, r1, c0, c1):
+    """Return the sub-block arr[r0:r1, c0:c1] of a 2D array."""
+    return arr[r0:r1,c0:c1]
 
-# Step 26 - max_along_axis (not yet solved)
-# TODO: implement
+# Step 17 - elementwise_add
+import numpy as np
 
-# Step 27 - matmul (not yet solved)
-# TODO: implement
+def elementwise_add(a, b):
+    """Return the elementwise sum of two same-shape arrays."""
+    return a+b
 
-# Step 28 - transpose_matrix (not yet solved)
-# TODO: implement
+# Step 18 - elementwise_multiply
+import numpy as np
 
-# Step 29 - sum_keepdims (not yet solved)
-# TODO: implement
+def elementwise_multiply(a, b):
+    """Return the elementwise product of two same-shape arrays."""
+    return a*b
 
-# Step 30 - naive_softmax_1d (not yet solved)
-# TODO: implement
+# Step 19 - scalar_broadcast_add
+import numpy as np
 
-# Step 31 - softmax_overflow_demo (not yet solved)
-# TODO: implement
+def scalar_broadcast_add(arr, scalar):
+    """Return a new array equal to arr with scalar added to every element."""
+    return arr + scalar
 
-# Step 32 - stable_softmax_1d (not yet solved)
-# TODO: implement
+# Step 20 - vector_matrix_broadcast_add
+import numpy as np
 
-# Step 33 - stable_softmax_2d_rowwise (not yet solved)
-# TODO: implement
+def vector_matrix_broadcast_add(matrix, vector):
+    """Add a 1D vector to each row of a 2D matrix via broadcasting."""
+    return matrix + vector
+
+# Step 21 - array_exp
+import numpy as np
+
+def array_exp(arr):
+    """Return the elementwise exponential of arr."""
+    return np.exp(arr)
+
+# Step 22 - array_log
+import numpy as np
+
+def array_log(arr):
+    """Return the elementwise natural log of arr (assumes arr > 0)."""
+    return np.log(arr)
+
+# Step 23 - sum_all
+import numpy as np
+
+def sum_all(arr):
+    """Return the sum of every element of arr as a scalar."""
+    return np.sum(arr)
+
+# Step 24 - sum_axis0
+import numpy as np
+
+def sum_axis0(arr):
+    """Sum a 2D array along axis 0, collapsing rows into a 1D vector of column sums."""
+    return np.sum(arr,axis=0)
+
+# Step 25 - sum_axis1
+import numpy as np
+
+def sum_axis1(arr):
+    """Sum a 2D array along axis 1, returning a 1D array of row sums."""
+    return np.sum(arr, axis = 1)
+
+# Step 26 - max_along_axis
+import numpy as np
+
+def max_along_axis(arr, axis):
+    """Return the maximum of arr along the given axis, with that axis removed."""
+    return np.max(arr, axis=axis)
+
+# Step 27 - matmul
+import numpy as np
+
+def matmul(a, b):
+    """Return the matrix product a @ b for 2D arrays a (M,K) and b (K,N)."""
+    
+    return a@b
+
+# Step 28 - transpose_matrix
+def transpose_matrix(arr):
+    """Return the transpose of a 2D array."""
+    return arr.T
+
+# Step 29 - sum_keepdims
+import numpy as np
+
+def sum_keepdims(arr, axis):
+    """Sum along `axis` while keeping that dimension as size 1."""
+    return np.sum(arr, axis=axis, keepdims = True)
+
+# Step 30 - naive_softmax_1d
+import numpy as np
+
+def naive_softmax_1d(logits):
+    """Compute softmax of a 1D logits vector via the direct exp/sum formula."""
+    
+    return array_exp(logits)/sum_all(array_exp(logits))
+
+# Step 31 - softmax_overflow_demo
+def softmax_overflow_demo(large_value):
+    """
+    Exponentiate large_value via array_exp and report whether it is inf.
+    """
+    large_value = array_exp(large_value)
+    if  np.isinf(large_value):
+        return {'naive_exp': np.inf, 'overflowed': True}
+    else: 
+        return {'naive_exp': large_value, 'overflowed': False}
+
+# Step 32 - stable_softmax_1d
+import numpy as np
+
+def stable_softmax_1d(logits):
+    """Numerically stable softmax over a 1D logits vector."""
+   
+    max_val = max_along_axis(logits, 0)
+    logits = logits-max_val
+    return array_exp(logits)/sum_all(array_exp(logits))
+
+# Step 33 - stable_softmax_2d_rowwise
+import numpy as np
+
+def stable_softmax_2d_rowwise(logits):
+    """Row-wise numerically stable softmax of a 2D logits array."""
+    max_vals = max_along_axis(logits, 1)
+    
+    for i in range(len(max_vals)):
+        logits[i] = logits[i]-max_vals[i]
+    
+    return array_exp(logits)/sum_keepdims(array_exp(logits),1)
 
 # Step 34 - read_text_file (not yet solved)
 # TODO: implement
