@@ -282,65 +282,192 @@ def pick_split_point(n, train_frac):
     import math
     return math.floor(n*train_frac)
 
-# Step 37 - slice_train_and_val (not yet solved)
-# TODO: implement
+# Step 37 - slice_train_and_val
+def slice_train_and_val(data, split_idx):
+    """Split a 1D token-id array into (train, val) at split_idx."""
 
-# Step 38 - pick_block_size (not yet solved)
-# TODO: implement
+    return data[:split_idx], data[split_idx:]
 
-# Step 39 - slice_x_at_offset (not yet solved)
-# TODO: implement
+# Step 38 - pick_block_size
+def pick_block_size(default_size):
+    """Return the context length (block_size) for training windows."""
+    if default_size < 1:
+        return 1
+    return default_size
 
-# Step 40 - slice_y_at_offset (not yet solved)
-# TODO: implement
+# Step 39 - slice_x_at_offset
+import numpy as np
 
-# Step 41 - sample_random_batch_offsets (not yet solved)
-# TODO: implement
+def slice_x_at_offset(data, i, block_size):
+    """Return the input window data[i : i + block_size]."""
+    return data[i : i + block_size]
 
-# Step 42 - stack_x_batch (not yet solved)
-# TODO: implement
+# Step 40 - slice_y_at_offset
+import numpy as np
 
-# Step 43 - stack_y_batch (not yet solved)
-# TODO: implement
+def slice_y_at_offset(data, i, block_size):
+    """Return the target window of length block_size starting at i+1."""
+    return data[i+1 : i+1+block_size]
 
-# Step 44 - get_batch (not yet solved)
-# TODO: implement
+# Step 41 - sample_random_batch_offsets
+def sample_random_batch_offsets(data_len, block_size, batch_size, rng):
+    """Sample batch_size random valid starting offsets for (block_size+1)->windows."""
+    # we use data_len-block_size instead of data_len-window size because of 
+    # high value does not include -> [ ) 
+    return rng.integers(low=0, high = (data_len-block_size), size=batch_size)
+    # returns starting points of each starting point of each sample
+    # ex -> there will 4 batch, there would 4 starting point
 
-# Step 45 - allocate_count_matrix (not yet solved)
-# TODO: implement
+# Step 42 - stack_x_batch
+import numpy as np
 
-# Step 46 - loop_fill_counts (not yet solved)
-# TODO: implement
+def stack_x_batch(data, offsets, block_size):
+    """Stack per-offset X windows into a 2D batch matrix of shape (B, block_size)."""
+    
+    stack_x =  []
 
-# Step 47 - vectorize_counts_add_at (not yet solved)
-# TODO: implement
+    for i in range(len(offsets)):
+        
+        offset = offsets[i]
+        stack = data[offset:offset+block_size]
+        stack_x.append(stack)
+        
+    return np.array(stack_x)
 
-# Step 48 - add_one_smoothing (not yet solved)
-# TODO: implement
+# Step 43 - stack_y_batch
+import numpy as np
 
-# Step 49 - row_sums_of_counts (not yet solved)
-# TODO: implement
+def stack_y_batch(data, offsets, block_size):
+    """Stack per-offset Y windows into a 2D (B, block_size) target matrix."""
 
-# Step 50 - normalize_counts_to_probs (not yet solved)
-# TODO: implement
+    stack_y =  []
 
-# Step 51 - sample_next_token (not yet solved)
-# TODO: implement
+    for i in range(len(offsets)):
 
-# Step 52 - generate_sequence (not yet solved)
-# TODO: implement
+        offset = offsets[i]
+        stack = data[offset+1:offset+block_size+1]
+        stack_y.append(stack)
 
-# Step 53 - decode_generated_sequence (not yet solved)
-# TODO: implement
+    return np.array(stack_y)
 
-# Step 54 - log_prob_of_pair (not yet solved)
-# TODO: implement
+# Step 44 - get_batch
+def get_batch(data, block_size, batch_size, rng):
+    # Package one training batch (X, Y) of shape (batch_size, block_size) from data using rng.
+    
+    offsets = sample_random_batch_offsets(len(data), block_size, batch_size, rng)
+    X_stack = stack_x_batch(data, offsets, block_size)
+    Y_stack = stack_y_batch(data, offsets, block_size)
+    return X_stack, Y_stack
 
-# Step 55 - sum_negative_log_probs (not yet solved)
-# TODO: implement
+# Step 45 - allocate_count_matrix
+import numpy as np
 
-# Step 56 - average_nll (not yet solved)
-# TODO: implement
+def allocate_count_matrix(vocab_size):
+    """Allocate a (V, V) integer zero matrix for bigram counts."""
+    return make_2d_zeros(vocab_size,vocab_size).astype(np.int64)
+
+# Step 46 - loop_fill_counts
+import numpy as np
+
+def loop_fill_counts(n_matrix, data):
+    """Increment n_matrix[curr, next] for every consecutive pair in data."""
+   
+    for i in range(len(data)-1):
+
+            x, y = data[i], data[i+1]
+            n_matrix[x][y] += 1 
+           
+    return n_matrix
+
+# Step 47 - vectorize_counts_add_at
+import numpy as np
+
+def vectorize_counts_add_at(vocab_size, data):
+    """Build (V, V) bigram counts from a 1D id array using vectorized scatter-add."""
+
+    lookup = allocate_count_matrix(vocab_size)
+    np.add.at(lookup, (data[:-1], data[1:]), 1)
+    
+    #data[:-1] -> x indices, data[1:]) y indices#
+    #(data[:-1], data[1:]) draws respectively x1,y1-x2,y2....xn,yn  at lookup
+    # and adds +1
+    return lookup
+
+# Step 48 - add_one_smoothing
+import numpy as np
+
+def add_one_smoothing(n_matrix):
+    """Return n_matrix with every entry incremented by 1 (Laplace smoothing)."""
+    return n_matrix + 1
+
+# Step 49 - row_sums_of_counts
+def row_sums_of_counts(n_matrix):
+    """Return per-row sums of n_matrix with shape (V, 1)."""
+    return sum_keepdims(n_matrix, 1)
+
+# Step 50 - normalize_counts_to_probs
+def normalize_counts_to_probs(n_matrix):
+    """Normalize a (V, V) count matrix into a row-stochastic probability matrix."""
+    
+    rows_sums = row_sums_of_counts(n_matrix)
+    return n_matrix/rows_sums
+
+# Step 51 - sample_next_token
+def sample_next_token(p_matrix, current_id, rng):
+    """Sample the next token id from P[current_id] using rng."""
+    probs = p_matrix[current_id]
+    return rng.choice(len(p_matrix[current_id]), p = probs)
+
+# Step 52 - generate_sequence
+def generate_sequence(p_matrix, start_id, length, rng):
+
+    """Autoregressively sample `length` token ids from a bigram matrix, starting with `start_id`."""
+
+    tokens = [start_id]
+    for i in range(length-1):
+      token =  sample_next_token(p_matrix, start_id, rng) 
+      tokens.append(token)
+      start_id = token
+
+    return np.array(tokens)
+
+# Step 53 - decode_generated_sequence
+def decode_generated_sequence(ids, itos):
+    """Decode a generated 1D array/list of token ids into a string via itos."""
+    
+    sequence = ''
+
+    for i in range(len(ids)):
+
+        token_id = ids[i]
+        token = itos[token_id]
+        sequence=sequence+token
+    
+    return sequence
+
+# Step 54 - log_prob_of_pair
+def log_prob_of_pair(p_matrix, current_id, next_id):
+    """Return the log probability of a single (current, next) bigram."""
+
+    return array_log(p_matrix[current_id][next_id])
+
+# Step 55 - sum_negative_log_probs
+def sum_negative_log_probs(p_matrix, data):
+    # Sum the negative log probabilities of all consecutive bigrams in data
+    
+    logs = []
+    for  i in range(len(data)-1):
+        
+        log = log_prob_of_pair(p_matrix,data[i],data[i+1])
+        logs.append(log)
+
+    return -sum(logs)
+
+# Step 56 - average_nll
+def average_nll(p_matrix, data):
+    # Mean negative log likelihood per bigram over consecutive pairs in data.
+    
+    return sum_negative_log_probs(p_matrix, data)/(len(data)-1)
 
 # Step 57 - initialize_w_random (not yet solved)
 # TODO: implement

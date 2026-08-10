@@ -46,26 +46,26 @@ python scaffold.py
 - [x] **34.** read_text_file
 - [x] **35.** encode_corpus_to_int_array
 - [x] **36.** pick_split_point
-- [ ] **37.** slice_train_and_val
-- [ ] **38.** pick_block_size
-- [ ] **39.** slice_x_at_offset
-- [ ] **40.** slice_y_at_offset
-- [ ] **41.** sample_random_batch_offsets
-- [ ] **42.** stack_x_batch
-- [ ] **43.** stack_y_batch
-- [ ] **44.** get_batch
-- [ ] **45.** allocate_count_matrix
-- [ ] **46.** loop_fill_counts
-- [ ] **47.** vectorize_counts_add_at
-- [ ] **48.** add_one_smoothing
-- [ ] **49.** row_sums_of_counts
-- [ ] **50.** normalize_counts_to_probs
-- [ ] **51.** sample_next_token
-- [ ] **52.** generate_sequence
-- [ ] **53.** decode_generated_sequence
-- [ ] **54.** log_prob_of_pair
-- [ ] **55.** sum_negative_log_probs
-- [ ] **56.** average_nll
+- [x] **37.** slice_train_and_val
+- [x] **38.** pick_block_size
+- [x] **39.** slice_x_at_offset
+- [x] **40.** slice_y_at_offset
+- [x] **41.** sample_random_batch_offsets
+- [x] **42.** stack_x_batch
+- [x] **43.** stack_y_batch
+- [x] **44.** get_batch
+- [x] **45.** allocate_count_matrix
+- [x] **46.** loop_fill_counts
+- [x] **47.** vectorize_counts_add_at
+- [x] **48.** add_one_smoothing
+- [x] **49.** row_sums_of_counts
+- [x] **50.** normalize_counts_to_probs
+- [x] **51.** sample_next_token
+- [x] **52.** generate_sequence
+- [x] **53.** decode_generated_sequence
+- [x] **54.** log_prob_of_pair
+- [x] **55.** sum_negative_log_probs
+- [x] **56.** average_nll
 - [ ] **57.** initialize_w_random
 - [ ] **58.** scale_w_small
 - [ ] **59.** one_hot_encode_batch
