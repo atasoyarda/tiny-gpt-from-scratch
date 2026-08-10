@@ -479,8 +479,12 @@ def initialize_w_random(vocab_size, rng):
 
     # X∼N(0,1) mean 0, std  1
 
-# Step 58 - scale_w_small (not yet solved)
-# TODO: implement
+# Step 58 - scale_w_small
+import numpy as np
+
+def scale_w_small(w_matrix, scale):
+    """w_matrix scaled by the given small factor."""
+    return w_matrix*scale
 
 # Step 59 - one_hot_encode_batch (not yet solved)
 # TODO: implement
