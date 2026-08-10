@@ -477,6 +477,8 @@ def initialize_w_random(vocab_size, rng):
    
     return rng.standard_normal(size = (vocab_size, vocab_size))
 
+    # X∼N(0,1) mean 0, std  1
+
 # Step 58 - scale_w_small (not yet solved)
 # TODO: implement
 
