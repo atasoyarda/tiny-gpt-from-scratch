@@ -535,8 +535,15 @@ def logits_to_probs_rowwise(logits):
     logits = logits - np.max(logits, axis=1,keepdims = True)
     return array_exp(logits)/sum_keepdims(array_exp(logits), 1)
 
-# Step 64 - gather_correct_token_probs (not yet solved)
-# TODO: implement
+# Step 64 - gather_correct_token_probs
+def gather_correct_token_probs(probs, targets):
+    """Return probs[i, targets[i]] for each i, shape (B,)."""
+    
+    prob_of_targets = []
+    for i in range(len(targets)):
+        prob_of_targets.append(probs[i, targets[i]])
+
+    return np.array(prob_of_targets)
 
 # Step 65 - cross_entropy_loss (not yet solved)
 # TODO: implement
