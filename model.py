@@ -506,8 +506,19 @@ def forward_logits_onehot(onehot, w_matrix):
     # a weight matrix of shape (V, V)
     return matmul(onehot, w_matrix)
 
-# Step 61 - observe_lookup_equivalence (not yet solved)
-# TODO: implement
+# Step 61 - observe_lookup_equivalence
+import numpy as np
+
+def observe_lookup_equivalence(w, ids):
+    """Show that one-hot @ W equals W[ids] for a small example.
+    Returns a dict with keys 'onehot_result' and 'index_result'.
+    """
+    ones = np.zeros((len(ids), len(w)))
+
+    for i in range(len(ids)):
+        ones[i][ids[i]] = 1
+
+    return {'onehot_result': (ones @ w), 'index_result': w[ids]}
 
 # Step 62 - forward_logits_lookup (not yet solved)
 # TODO: implement
