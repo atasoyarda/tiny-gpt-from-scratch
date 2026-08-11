@@ -537,7 +537,7 @@ def logits_to_probs_rowwise(logits):
 
 # Step 64 - gather_correct_token_probs
 def gather_correct_token_probs(probs, targets):
-    """pprobs[i, targets[i]] for each i, shape (B,)."""
+    """probs[i, targets[i]] for each i, shape (B,)."""
     
     prob_of_targets = []
     for i in range(len(targets)):
