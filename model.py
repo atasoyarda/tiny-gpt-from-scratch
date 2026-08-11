@@ -552,6 +552,8 @@ def cross_entropy_loss(probs, targets):
     """Mean negative log-likelihood over a batch."""
 
     correct_token_probs = probs[np.arange(len(probs)), targets]
+    eps=1e-12
+    correct_token_probs = np.clip(correct_token_probs, eps, 1.0)
     return -np.mean(np.log(correct_token_probs))
 
 # Step 66 - derive_dlogits_on_paper (not yet solved)
