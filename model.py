@@ -658,7 +658,7 @@ def train_neural_bigram_loop(w, data, block_size, batch_size, learning_rate, num
 
     return {
         'w' : w,
-        'loss_history' : loss_history[::log_every]
+        'loss_history' : loss_history[::log_every] #optimize this later 
     }
 
 # Step 73 - sample_from_neural_bigram (not yet solved)
