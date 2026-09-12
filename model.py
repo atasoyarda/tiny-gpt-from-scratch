@@ -724,8 +724,13 @@ def bias_add_backward_db(dy, cache):
 
     return np.sum(dy,axis = 0,keepdims = True).reshape(cache['b_shape'])
 
-# Step 81 - relu_forward (not yet solved)
-# TODO: implement
+# Step 81 - relu_forward
+def relu_forward(x):
+    
+    return {
+        'y': np.maximum(x,0),
+        'cache': {'x':x}
+    }
 
 # Step 82 - relu_backward (not yet solved)
 # TODO: implement
